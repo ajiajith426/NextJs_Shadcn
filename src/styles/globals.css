@@ -6,6 +6,7 @@
 :root {
   --background: #020817;
   --foreground: #171717;
+  --white: #ffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,7 +17,7 @@
 }
 
 body {
-  color: var(--foreground);
+  color: var(--white);
   background: var(--background);
   font-family: 'Montserrat', sans-serif;
 }
