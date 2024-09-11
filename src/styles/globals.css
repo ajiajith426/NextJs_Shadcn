@@ -4,8 +4,8 @@
 @tailwind utilities;
 
 :root {
-  --background: #020817;
-  --foreground: #171717;
+  --background: #1e293b;
+  --foreground: 210 40% 98% / 1;
   --white: #ffff;
 }
 
@@ -38,7 +38,7 @@ body {
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 223 84% 5% / 1;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
