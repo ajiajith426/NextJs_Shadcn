@@ -2,38 +2,58 @@ import {Button} from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import {Input} from "@/components/ui/input";
+import {PhoneInput} from "@/components/ui/phone-input";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {useRouter} from "next/router";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
+import {
+  Country,
+  formatPhoneNumber,
+  formatPhoneNumberIntl,
+  getCountryCallingCode,
+  isValidPhoneNumber,
+} from "react-phone-number-input";
+import tr from "react-phone-number-input/locale/tr";
 import * as z from "zod";
 
-const formSchema = z.object({
-  email: z.string().email({message: "Enter a valid email address"}),
+const FormSchema = z.object({
+  phone: z
+    .string()
+    .refine(isValidPhoneNumber, {message: "Invalid phone number"}),
 });
 
-type UserFormValue = z.infer<typeof formSchema>;
+type UserFormValue = z.infer<typeof FormSchema>;
 
-export default function LoginFormComponent() {
-  const router = useRouter();
+type loginProps = {
+  setFormType: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export default function LoginFormComponent({setFormType}: loginProps) {
   const [loading] = useState(false);
+  const [country, setCountry] = useState<Country>();
+  const [phoneNumber, setPhoneNumber] = useState("");
   const defaultValues = {
     email: "demo@gmail.com",
   };
   const form = useForm<UserFormValue>({
-    resolver: zodResolver(formSchema),
-    defaultValues,
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      phone: "",
+    },
+    // defaultValues,
   });
 
   const onSubmit = async (data: UserFormValue) => {
     console.log("data", data);
-    router.push("/admin/user");
+    setFormType("otp");
+    // router.push("/admin/dashboard");
   };
 
   return (
@@ -45,25 +65,27 @@ export default function LoginFormComponent() {
         >
           <FormField
             control={form.control}
-            name="email"
+            name="phone"
             render={({field}) => (
-              <FormItem>
-                <FormLabel>Email</FormLabel>
-                <FormControl>
-                  <Input
-                    type="email"
-                    placeholder="Enter your email..."
-                    disabled={loading}
+              <FormItem className="flex flex-col items-start">
+                <FormLabel className="text-left">Phone Number</FormLabel>
+                <FormControl className="w-full">
+                  <PhoneInput
+                    placeholder="Enter a phone number"
+                    defaultCountry="IN"
+                    international
                     {...field}
                   />
                 </FormControl>
+                <FormDescription className="text-left text-xs">
+                  We respect privacy. Your number won't be shared.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
           />
-
           <Button disabled={loading} className="ml-auto w-full" type="submit">
-            Continue With Email
+            Continue With Phone
           </Button>
         </form>
       </Form>

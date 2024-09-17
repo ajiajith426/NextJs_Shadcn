@@ -1,10 +1,19 @@
-import React from "react";
+import React, {useState} from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import {serverSideTranslations} from "next-i18next/serverSideTranslations";
+import {useRouter} from "next/router";
+import {useTranslation} from "react-i18next";
+import LanguageSwitcher from "@/components/languageSwitcher";
+import {OTPFormComponent} from "./otpForm";
 
 const LoginFormComponent = dynamic(() => import("./loginForm"));
 
 function LoginPage() {
+  const {locale} = useRouter();
+  const {t} = useTranslation("common");
+  const [formType, setFormType] = useState("login");
+
   return (
     <div className="relative h-screen flex-col items-center justify-center md:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r  lg:flex">
@@ -39,13 +48,17 @@ function LoginPage() {
         <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
           <div className="flex flex-col space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight text-white">
-              Create an account
+              Login With Phone
             </h1>
             <p className="text-sm text-muted-foreground">
-              Enter your email below to create your account
+              Enter your phone below to login your account
             </p>
           </div>
-          <LoginFormComponent />
+          {formType === "login" && (
+            <LoginFormComponent setFormType={setFormType} />
+          )}
+          {formType === "otp" && <OTPFormComponent />}
+
           <p className="px-8 text-center text-sm text-muted-foreground">
             By clicking continue, you agree to our{" "}
             <Link
@@ -70,3 +83,11 @@ function LoginPage() {
 }
 
 export default LoginPage;
+
+export async function getStaticProps({locale}: {locale: string}) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ["common"])),
+    },
+  };
+}
