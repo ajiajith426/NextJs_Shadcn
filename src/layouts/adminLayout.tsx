@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // components/SideMenu.tsx
-import {useState} from "react";
+import { useState } from "react";
 import Link from "next/link";
-import {Home} from "lucide-react"; // Replace with appropriate icons
+import { Home } from "lucide-react"; // Replace with appropriate icons
 
 type MenuItem = {
   label: string;
   path?: string;
   icon?: any;
-  subMenu?: {label: string; path: string}[];
+  subMenu?: { label: string; path: string }[];
 };
 
 type PropType = {
@@ -20,18 +20,18 @@ const menuItems: MenuItem[] = [
     label: "Dashboard",
     icon: <Home className="h-6 w-6" />,
     subMenu: [
-      {label: "Electronics", path: "/products/electronics"},
-      {label: "Clothing", path: "/products/clothing"},
-      {label: "Electronics", path: "/products/electronics"},
-      {label: "Clothing", path: "/products/clothing"},
+      { label: "Electronics12", path: "/products/electronics" },
+      { label: "Clothing", path: "/products/clothing" },
+      { label: "Electronics", path: "/products/electronics" },
+      { label: "Clothing", path: "/products/clothing" },
     ],
   },
   {
     label: "Products",
     icon: <Home className="h-6 w-6" />,
     subMenu: [
-      {label: "Electronics", path: "/products/electronics"},
-      {label: "Clothing", path: "/products/clothing"},
+      { label: "Electronics", path: "/products/electronics" },
+      { label: "Clothing", path: "/products/clothing" },
     ],
   },
   {
@@ -41,7 +41,7 @@ const menuItems: MenuItem[] = [
   },
 ];
 
-export default function SideMenu({children}: PropType) {
+export default function SideMenu({ children }: PropType) {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       {/* Sidebar */}
@@ -61,7 +61,7 @@ export default function SideMenu({children}: PropType) {
   );
 }
 
-function MenuItem({item}: {item: MenuItem}) {
+function MenuItem({ item }: { item: MenuItem }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -80,7 +80,7 @@ function MenuItem({item}: {item: MenuItem}) {
 
       {item.subMenu && (
         <ul
-          className={`absolute left-full h-screen top-0 w-48 bg-gray-800 transition-opacity duration-300
+          className={`fixed left-64 top-0 h-screen top-0 w-48 bg-gray-800 transition-opacity duration-300
             ${isHovered ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         >
