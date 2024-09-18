@@ -2,16 +2,11 @@ import React, {useState} from "react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
-import {useRouter} from "next/router";
-import {useTranslation} from "react-i18next";
-import LanguageSwitcher from "@/components/languageSwitcher";
 import {OTPFormComponent} from "./otpForm";
 
 const LoginFormComponent = dynamic(() => import("./loginForm"));
 
 function LoginPage() {
-  const {locale} = useRouter();
-  const {t} = useTranslation("common");
   const [formType, setFormType] = useState("login");
 
   return (

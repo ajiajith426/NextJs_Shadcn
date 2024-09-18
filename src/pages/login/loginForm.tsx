@@ -8,19 +8,11 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import {Input} from "@/components/ui/input";
 import {PhoneInput} from "@/components/ui/phone-input";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
-import {
-  Country,
-  formatPhoneNumber,
-  formatPhoneNumberIntl,
-  getCountryCallingCode,
-  isValidPhoneNumber,
-} from "react-phone-number-input";
-import tr from "react-phone-number-input/locale/tr";
+import {isValidPhoneNumber} from "react-phone-number-input";
 import * as z from "zod";
 
 const FormSchema = z.object({
@@ -37,11 +29,6 @@ type loginProps = {
 
 export default function LoginFormComponent({setFormType}: loginProps) {
   const [loading] = useState(false);
-  const [country, setCountry] = useState<Country>();
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const defaultValues = {
-    email: "demo@gmail.com",
-  };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -78,7 +65,7 @@ export default function LoginFormComponent({setFormType}: loginProps) {
                   />
                 </FormControl>
                 <FormDescription className="text-left text-xs">
-                  We respect privacy. Your number won't be shared.
+                  {`We respect privacy. Your number won't be shared.`}
                 </FormDescription>
                 <FormMessage />
               </FormItem>

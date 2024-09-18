@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
+    "@hugeicons/hugeicons-pro": "^0.0.6",
+    "@hugeicons/react-pro": "^0.3.2",
+    "@hugeicons/react-pro-demo": "^0.0.2",
     "@radix-ui/react-checkbox": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
